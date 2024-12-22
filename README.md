@@ -32,6 +32,9 @@ new MessageComponent('error', 'An error occurred!', '.error-messages', 'prepend'
 
 // Display a warning message
 new MessageComponent('warning', 'Please be careful!', '#warning-area').display();
+
+// Display a message with a timeout
+new MessageComponent('success', 'Operation completed successfully!', '#message-container', 'append', 5000).display();
 ```
 
 ### HTML Setup
@@ -49,13 +52,14 @@ To use Message Injector, you need to set up the HTML structure for the messages.
 ### Constructor:
 
 ```javascript
-new MessageComponent(type, message, targetSelector, [position = 'append'])
+new MessageComponent(type, message, targetSelector, [position = 'append'], [timeout = 3000])
 ```
 
 - **type**: 'success', 'error', or 'warning'.
 - **message**: The text content of the message.
 - **targetSelector**: CSS selector for where to inject the message (ID or class).
 - **position**: Optional. Can be 'append' (default) or 'prepend'.
+- **timeout**: Optional. Time in milliseconds for auto-dismissal.
 
 ### Methods
 
