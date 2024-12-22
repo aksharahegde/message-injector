@@ -1,0 +1,38 @@
+{
+  "name": "message-injector",
+  "version": "1.0.0",
+  "description": "A lightweight JavaScript library for effortlessly injecting message component into your web application.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/aksharahegde/message-injector.git"
+  },
+  "keywords": [
+    "messages",
+    "notifications",
+    "alerts",
+    "JavaScript",
+    "component",
+    "inject",
+    "UI",
+    "frontend",
+    "error",
+    "success",
+    "warning",
+    "notification system",
+    "toast",
+    "popup",
+    "alert system",
+    "web development",
+    "user feedback"
+  ],
+  "author": "aksharahegde",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aksharahegde/message-injector/issues"
+  },
+  "homepage": "https://github.com/aksharahegde/message-injector#readme"
+}
