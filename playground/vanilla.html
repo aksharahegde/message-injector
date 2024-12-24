@@ -111,7 +111,7 @@
     </div>
 
     <script type="module">
-    import MessageComponent from '../index.js';
+    import MessageComponent from '../dist/index.js';
 
       // Make MessageComponent available globally
       window.MessageComponent = MessageComponent;
@@ -147,9 +147,7 @@
         const icon = document.getElementById("iconInput").value || null;
         const title = document.getElementById("titleInput").value || null;
         const position = document.getElementById("position").value;
-        const timeout = parseInt(document.getElementById("timeout").value);
-
-        console.log("timeout", timeout);
+        const timeout = parseInt(document.getElementById("timeout").value) || 0;
 
         new MessageComponent(
           type,
