@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 // CSS classes for better maintenance and separation of concerns
 const styles = `
 .message-component {
@@ -38,94 +40,80 @@ const styles = `
     font-size: 20px;
 }
 `;
-
-// Append styles to the document (you might want to put this in a separate CSS file for better practice)
+// Append styles to the document
 const styleSheet = document.createElement("style");
 styleSheet.textContent = styles;
 document.head.appendChild(styleSheet);
-
 class MessageComponent {
-  constructor(
-    type,
-    message,
-    targetSelector,
-    position = "append",
-    timeout = 3000
-  ) {
-    this.type = type;
-    this.message = message;
-    this.targetSelector = targetSelector;
-    this.position = position;
-    this.timeout = timeout; // Time in milliseconds for auto-dismissal
-    this.icons = {
-      success: "✓",
-      error: "✗",
-      warning: "!",
-    };
-  }
-
-  createElement() {
-    const div = document.createElement("div");
-    div.className = `message-component ${this.type}`;
-
-    // Message content
-    div.innerHTML = `<strong>${this.icons[this.type]} ${
-      this.type.charAt(0).toUpperCase() + this.type.slice(1)
-    }:</strong> ${this.message}`;
-
-    // Close button
-    const closeButton = document.createElement("span");
-    closeButton.innerHTML = "×";
-    closeButton.className = "close-button";
-    closeButton.setAttribute("aria-label", "Close");
-    closeButton.setAttribute("role", "button");
-    closeButton.onclick = () => {
-      this.dismissMessage(div);
-    };
-
-    div.appendChild(closeButton);
-
-    // Trigger fade-in and slide-down animation
-    setTimeout(() => {
-      div.classList.add("visible");
-    }, 50);
-
-    return div;
-  }
-
-  appendOrPrepend(element) {
-    const target = document.querySelector(this.targetSelector);
-    if (!target) {
-      console.error("Target element not found");
-      return;
+    constructor(type, message, targetSelector, position = 'append', timeout = 0, icon = null, title = null) {
+        this.autoDismissTimeout = null;
+        this.type = type;
+        this.message = message;
+        this.targetSelector = targetSelector;
+        this.position = position;
+        this.timeout = timeout; // Time in milliseconds for auto-dismissal
+        this.icon = icon; // Use provided icon or default to type icon
+        this.title =
+            title || this.type.charAt(0).toUpperCase() + this.type.slice(1); // Use provided title or default to type
     }
-
-    if (this.position === "append") {
-      target.appendChild(element);
-    } else {
-      target.insertBefore(element, target.firstChild);
+    createElement() {
+        const div = document.createElement("div");
+        div.className = `message-component ${this.type}`;
+        // Message content
+        div.innerHTML = `<strong>${this.icon || ""} ${this.title}</strong><br/> ${this.message}`;
+        // Close button
+        const closeButton = document.createElement("span");
+        closeButton.innerHTML = "×";
+        closeButton.className = "close-button";
+        closeButton.setAttribute("aria-label", "Close");
+        closeButton.setAttribute("role", "button");
+        closeButton.onclick = () => {
+            this.dismissMessage(div);
+        };
+        div.appendChild(closeButton);
+        // Trigger fade-in and slide-down animation
+        setTimeout(() => {
+            div.classList.add("visible");
+        }, 50);
+        return div;
     }
-  }
-
-  display() {
-    const messageElement = this.createElement();
-    this.appendOrPrepend(messageElement);
-
-    // Set timeout for auto-dismissal
-    this.autoDismissTimeout = setTimeout(() => {
-      this.dismissMessage(messageElement);
-    }, this.timeout);
-  }
-
-  dismissMessage(element) {
-    element.classList.remove("visible");
-    clearTimeout(this.autoDismissTimeout); // Clear the timeout if the message is manually dismissed
-    setTimeout(() => {
-      if (element.parentNode) {
-        element.parentNode.removeChild(element);
-      }
-    }, 300); // Wait for animation to complete before removing
-  }
+    appendOrPrepend(element) {
+        const target = document.querySelector(this.targetSelector);
+        if (!target) {
+            console.error("Target element not found");
+            return;
+        }
+        if (this.position === "append") {
+            target.appendChild(element);
+        }
+        else {
+            target.insertBefore(element, target.firstChild);
+        }
+    }
+    display() {
+        const messageElement = this.createElement();
+        this.appendOrPrepend(messageElement);
+        // Set timeout for auto-dismissal only if timeout is greater than 0
+        if (this.timeout > 0) {
+            console.log("Setting timeout for auto-dismissal");
+            this.autoDismissTimeout = setTimeout(() => {
+                this.dismissMessage(messageElement);
+            }, this.timeout);
+        }
+        else {
+            console.log("No timeout set for auto-dismissal");
+        }
+    }
+    dismissMessage(element) {
+        element.classList.remove("visible");
+        if (this.autoDismissTimeout) {
+            clearTimeout(this.autoDismissTimeout); // Clear the timeout if the message is manually dismissed
+        }
+        setTimeout(() => {
+            if (element.parentNode) {
+                element.parentNode.removeChild(element);
+            }
+        }, 300); // Wait for animation to complete before removing
+    }
 }
-
-export default MessageComponent;
+exports.default = MessageComponent;

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Message Injector Playground</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .controls {
+        margin-bottom: 20px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+
+      .message-container {
+        min-height: 100px;
+        padding: 10px;
+        border: 1px dashed #ccc;
+        border-radius: 5px;
+      }
+
+      button {
+        padding: 8px 16px;
+        margin: 5px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .success-btn {
+        background-color: #4caf50;
+        color: white;
+      }
+
+      .error-btn {
+        background-color: #f44336;
+        color: white;
+      }
+
+      .warning-btn {
+        background-color: #ffeb3b;
+      }
+
+      select,
+      input {
+        padding: 8px;
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Message Injector Playground</h1>
+
+    <div class="controls">
+      <h3>Controls</h3>
+      <div>
+        <select id="messageType">
+          <option value="success">Success</option>
+          <option value="error">Error</option>
+          <option value="warning">Warning</option>
+        </select>
+        <input
+          type="text"
+          id="messageText"
+          placeholder="Enter message text"
+          value="This is a test message"
+        />
+        <input
+          type="text"
+          id="iconInput"
+          placeholder="Optional icon (leave blank for default)"
+        />
+        <input
+          type="text"
+          id="titleInput"
+          placeholder="Optional title (leave blank for default)"
+        />
+        <select id="position">
+          <option value="append">Append</option>
+          <option value="prepend">Prepend</option>
+        </select>
+        <input
+          type="number"
+          id="timeout"
+          placeholder="Timeout (ms)"
+          value="3000"
+        />
+        <button onclick="showMessage()">Show Message</button>
+      </div>
+
+      <div style="margin-top: 15px">
+        <button class="success-btn" onclick="quickSuccess()">
+          Quick Success
+        </button>
+        <button class="error-btn" onclick="quickError()">Quick Error</button>
+        <button class="warning-btn" onclick="quickWarning()">
+          Quick Warning
+        </button>
+      </div>
+    </div>
+
+    <div id="messageContainer" class="message-container">
+      <h3>Messages will appear here</h3>
+    </div>
+
+    <script type="module">
+      import MessageComponent from "../index.js";
+
+      // Make MessageComponent available globally
+      window.MessageComponent = MessageComponent;
+
+      // Setup quick message functions
+      window.quickSuccess = () => {
+        new MessageComponent(
+          "success",
+          "Operation completed successfully!",
+          "#messageContainer"
+        ).display();
+      };
+
+      window.quickError = () => {
+        new MessageComponent(
+          "error",
+          "An error occurred while processing your request.",
+          "#messageContainer"
+        ).display();
+      };
+
+      window.quickWarning = () => {
+        new MessageComponent(
+          "warning",
+          "Please review your input before proceeding.",
+          "#messageContainer"
+        ).display();
+      };
+
+      window.showMessage = () => {
+        const type = document.getElementById("messageType").value;
+        const message = document.getElementById("messageText").value;
+        const icon = document.getElementById("iconInput").value || null;
+        const title = document.getElementById("titleInput").value || null;
+        const position = document.getElementById("position").value;
+        const timeout = parseInt(document.getElementById("timeout").value);
+
+        console.log("timeout", timeout);
+
+        new MessageComponent(
+          type,
+          message,
+          "#messageContainer",
+          position,
+          timeout,
+          icon,
+          title
+        ).display();
+      };
+    </script>
+  </body>
+</html>

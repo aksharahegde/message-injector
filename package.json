@@ -40,5 +40,8 @@
   "bugs": {
     "url": "https://github.com/aksharahegde/message-injector/issues"
   },
-  "homepage": "https://github.com/aksharahegde/message-injector#readme"
+  "homepage": "https://github.com/aksharahegde/message-injector#readme",
+  "devDependencies": {
+    "typescript": "^5.7.2"
+  }
 }
