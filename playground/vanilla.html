@@ -19,11 +19,21 @@
         border-radius: 5px;
       }
 
+      .controls-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
       .message-container {
         min-height: 100px;
         padding: 10px;
         border: 1px dashed #ccc;
         border-radius: 5px;
+      }
+
+      .width-50 {
+        width: 50%;
       }
 
       button {
@@ -60,8 +70,8 @@
 
     <div class="controls">
       <h3>Controls</h3>
-      <div>
-        <select id="messageType">
+      <div class="controls-container">
+        <select id="messageType" class="width-50">
           <option value="success">Success</option>
           <option value="error">Error</option>
           <option value="warning">Warning</option>
@@ -82,7 +92,7 @@
           id="titleInput"
           placeholder="Optional title (leave blank for default)"
         />
-        <select id="position">
+        <select id="position" class="width-50">
           <option value="append">Append</option>
           <option value="prepend">Prepend</option>
         </select>
@@ -91,6 +101,7 @@
           id="timeout"
           placeholder="Timeout (ms)"
           value="3000"
+          class="width-50"
         />
         <button onclick="window.showMessage()">Show Message</button>
       </div>
