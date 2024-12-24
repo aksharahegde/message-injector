@@ -92,7 +92,7 @@
           placeholder="Timeout (ms)"
           value="3000"
         />
-        <button onclick="showMessage()">Show Message</button>
+        <button onclick="window.showMessage()">Show Message</button>
       </div>
 
       <div style="margin-top: 15px">
@@ -111,7 +111,7 @@
     </div>
 
     <script type="module">
-      import MessageComponent from "../index.js";
+    import MessageComponent from '../index.js';
 
       // Make MessageComponent available globally
       window.MessageComponent = MessageComponent;

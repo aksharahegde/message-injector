@@ -1,5 +1,9 @@
 // CSS classes for better maintenance and separation of concerns
 const styles = `
+.hello-world {
+    color: red;
+}
+
 .message-component {
     padding: 10px;
     margin: 10px 0;
@@ -36,8 +40,7 @@ const styles = `
     right: 10px;
     cursor: pointer;
     font-size: 20px;
-}
-`;
+}`;
 
 // Append styles to the document
 const styleSheet = document.createElement("style");
